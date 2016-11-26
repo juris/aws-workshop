@@ -1,0 +1,23 @@
+#cloud-config
+
+coreos:
+
+  units:
+    - name: etcd2.service
+      enable: true
+      command: start
+
+    - name: fleet.service
+      enable: true
+      command: start
+
+    - name: settimezone.service
+      command: start
+      content: |
+        [Unit]
+        Description=Set time zone
+
+        [Service]
+        ExecStart=/usr/bin/timedatectl set-timezone UTC
+        RemainAfterExit=yes
+        Type=oneshot
