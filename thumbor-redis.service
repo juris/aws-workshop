@@ -1,0 +1,15 @@
+[Unit]
+Description=Thumbor service
+After=docker.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill thumbor
+ExecStartPre=-/usr/bin/docker rm thumbor
+ExecStart=/usr/bin/docker run --name thumbor \
+                              -e "STORAGE=tc_redis.storages.redis_storage" \
+                              -e "REDIS_STORAGE_SERVER_HOST=<ELASTICACHE_HOST>" \
+                              -e "REDIS_STORAGE_SERVER_DB=10" \
+                              --publish=80:8000 apsl/thumbor
+ExecStop=/usr/bin/docker stop thumbor
