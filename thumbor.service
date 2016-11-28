@@ -8,4 +8,4 @@ TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker kill thumbor
 ExecStartPre=-/usr/bin/docker rm thumbor
 ExecStart=/usr/bin/docker run --name thumbor --publish=80:8000 apsl/thumbor
-ExecStop=/usr/bin/docker stop node-exporter
+ExecStop=/usr/bin/docker stop thumbor
