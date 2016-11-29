@@ -1,0 +1,37 @@
+#cloud-config
+
+coreos:
+
+  units:
+    - name: etcd2.service
+      enable: true
+      command: start
+
+    - name: fleet.service
+      enable: true
+      command: start
+
+    - name: settimezone.service
+      command: start
+      content: |
+        [Unit]
+        Description=Set time zone
+
+        [Service]
+        ExecStart=/usr/bin/timedatectl set-timezone UTC
+        RemainAfterExit=yes
+        Type=oneshot
+
+    - name: sysprep.service
+      command: start
+      content: |
+        [Unit]
+        Description=Prepare Thumbor instance
+
+        [Service]
+        Type=oneshot
+        User=core
+        TimeoutStartSec=180s
+        ExecStartPre=/usr/bin/docker pull apsl/thumbor
+        ExecStartPre=/usr/bin/curl -so /home/core/thumbor-s3.service http://pastebin.com/raw/rTGS3LUM
+        ExecStart=/usr/bin/fleetctl start /home/core/thumbor-s3.service
