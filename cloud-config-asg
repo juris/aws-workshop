@@ -33,5 +33,5 @@ coreos:
         User=core
         TimeoutStartSec=180s
         ExecStartPre=/usr/bin/docker pull apsl/thumbor
-        ExecStartPre=/usr/bin/curl -so /home/core/thumbor-s3.service http://pastebin.com/raw/rTGS3LUM
+        ExecStartPre=/usr/bin/curl -so /home/core/thumbor-s3.service https://raw.githubusercontent.com/juris/aws-workshop/master/thumbor-s3.service
         ExecStart=/usr/bin/fleetctl start /home/core/thumbor-s3.service
