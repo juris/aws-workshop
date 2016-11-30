@@ -21,6 +21,7 @@ Test URLs:
 App ELB health check path: `/healthcheck`
 
 Load test host: `ab.aws.zee.lv`
+
 Load test ELB:
 ```
 $ ab -n 100000 -c 10 <URL>
