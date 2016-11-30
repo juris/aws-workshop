@@ -1,0 +1,24 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": [
+                "ec2:StartInstances",
+                "ec2:StopInstances",
+                "ec2:RebootInstances"
+            ],
+            "Condition": {
+                "ForAllValues:StringEquals": {
+                    "ec2:ResourceTag/environment": [
+                        "prod",
+                        "dev"
+                    ]
+                }
+            },
+            "Resource": [
+                "arn:aws:ec2:us-east-1:282675939603:instance/*"
+            ],
+            "Effect": "Allow"
+        }
+    ]
+}
